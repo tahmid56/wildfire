@@ -1,7 +1,45 @@
 import React, { useState } from 'react';
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
+import Card from '../components/Card';
 
 const Home = () => {
+    const animeList = [
+        {
+            name: 'Hello There',
+            imgUrl: 'https://safebooru.org//samples/4286/sample_61bff1549a835a39fa4f229de18dd6ee53b5cb62.jpg?4475165',
+            description: 'Lorem ipsum tor es dinos men tro',
+        },
+        {
+            name: 'Hello There 2',
+            imgUrl: 'https://safebooru.org//images/4287/7a6502e9d7d861418d12eb69eebfc495be56e741.png?4475262',
+            description: 'Lorem ipsum tor es dinos men tro',
+        },
+        {
+            name: 'Hello There 3',
+            imgUrl: 'https://images.unsplash.com/photo-1519638399535-1b036603ac77?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1631&q=80',
+            description: 'Lorem ipsum tor es dinos men tro',
+        },
+        {
+            name: 'Hello There 4',
+            imgUrl: 'https://images.unsplash.com/photo-1519638399535-1b036603ac77?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1631&q=80',
+            description: 'Lorem ipsum tor es dinos men tro',
+        },
+        {
+            name: 'Hello There 5',
+            imgUrl: 'https://images.unsplash.com/photo-1519638399535-1b036603ac77?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1631&q=80',
+            description: 'Lorem ipsum tor es dinos men tro',
+        },
+        {
+            name: 'Hello There 6',
+            imgUrl: 'https://images.unsplash.com/photo-1519638399535-1b036603ac77?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1631&q=80',
+            description: 'Lorem ipsum tor es dinos men tro',
+        },
+        {
+            name: 'Hello There 7',
+            imgUrl: 'https://images.unsplash.com/photo-1519638399535-1b036603ac77?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1631&q=80',
+            description: 'Lorem ipsum tor es dinos men tro',
+        },
+    ];
     const slides = [
         {
             imgUrl: 'https://images.unsplash.com/photo-1519638399535-1b036603ac77?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1631&q=80',
@@ -19,8 +57,8 @@ const Home = () => {
             imgUrl: 'https://images.unsplash.com/photo-1519638399535-1b036603ac77?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1631&q=80',
         },
     ];
-    const [selectedNav, setSelectedNav] = useState(new Date().getDay());
-    console.log(selectedNav);
+    const [selectedNav, setSelectedNav] = useState(1);
+
     const [currentIndex, setCurrentIndex] = useState(0);
     const handlePrevSlideClick = () => {
         const isFirstSlide = currentIndex === 0;
@@ -58,84 +96,36 @@ const Home = () => {
                     onClick={() => setSelectedNav(1)}
                     className={
                         selectedNav === 1
-                            ? 'h-full w-[14.2%] bg-lime-500 items-center justify-center flex text-white font-bold'
+                            ? 'h-full w-[33.3%] bg-lime-500 items-center justify-center flex text-white font-bold'
                             : 'font-bold'
                     }
                 >
-                    MON
+                    POPULAR
                 </div>
                 <div
                     onClick={() => setSelectedNav(2)}
                     className={
                         selectedNav === 2
-                            ? 'h-full w-[14.2%] bg-lime-500 items-center justify-center flex text-white font-bold'
+                            ? 'h-full w-[33.3%] bg-lime-500 items-center justify-center flex text-white font-bold'
                             : 'font-bold'
                     }
                 >
-                    TUE
+                    ORIGINAL
                 </div>
                 <div
                     onClick={() => setSelectedNav(3)}
                     className={
                         selectedNav === 3
-                            ? 'h-full w-[14.2%] bg-lime-500 items-center justify-center flex text-white font-bold'
+                            ? 'h-full w-[33.3%] bg-lime-500 items-center justify-center flex text-white font-bold animation active:scale-125'
                             : 'font-bold'
                     }
                 >
-                    WED
-                </div>
-                <div
-                    onClick={() => setSelectedNav(4)}
-                    className={
-                        selectedNav === 4
-                            ? 'h-full w-[14.2%] bg-lime-500 items-center justify-center flex text-white font-bold'
-                            : 'font-bold'
-                    }
-                >
-                    THU
-                </div>
-                <div
-                    onClick={() => setSelectedNav(5)}
-                    className={
-                        selectedNav === 5
-                            ? 'h-full w-[14.2%] bg-lime-500 items-center justify-center flex text-white font-bold'
-                            : 'font-bold'
-                    }
-                >
-                    FRI
-                </div>
-                <div
-                    onClick={() => setSelectedNav(6)}
-                    className={
-                        selectedNav === 6
-                            ? 'h-full w-[14.2%] bg-lime-500 items-center justify-center flex text-white font-bold'
-                            : 'font-bold'
-                    }
-                >
-                    SAT
-                </div>
-                <div
-                    onClick={() => setSelectedNav(0)}
-                    className={
-                        selectedNav === 0
-                            ? 'h-full w-[14%] bg-lime-500 items-center justify-center flex text-white font-bold'
-                            : 'font-bold'
-                    }
-                >
-                    SUN
+                    FANMADE
                 </div>
             </nav>
-            <div className="mx-0 sm:mx-[10vw] flex justify-center items-center">
-                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 ">
-                    <div
-                        className="h-[200px] w-[200px] bg-black my-2 mx-4 hover:bg-red"
-                        style={{ backgroundImage: `url(${slides[currentIndex].imgUrl})` }}
-                    ></div>
-                    <div className="h-[200px] w-[200px] bg-black my-2 mx-4"></div>
-                    <div className="h-[200px] w-[200px] bg-black my-2 mx-4"></div>
-                    <div className="h-[200px] w-[200px] bg-black my-2 mx-4"></div>
-                    <div className="h-[200px] w-[200px] bg-black my-2 mx-4"></div>
-                    <div className="h-[200px] w-[200px] bg-black my-2 mx-4"></div>
+            <div className="mx-1 sm:mx-[10vw] flex justify-center items-center">
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 space-x-3 space-y-3">
+                    {animeList && animeList.map((anime, index) => <Card anime={anime} key={index} />)}
                 </div>
             </div>
         </main>

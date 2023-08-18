@@ -31,7 +31,7 @@ const Header = () => {
                     <h1 className="font-bold text-[#7A4249]">WILDFIRE</h1>
                 </div>
                 <div className="">
-                    <ul className="flex space-x-10">
+                    <ul className="flex space-x-6">
                         <Link to="/">
                             <li
                                 className={
