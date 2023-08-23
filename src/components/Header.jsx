@@ -20,7 +20,7 @@ const Header = () => {
     }, [auth]);
     return (
         <div className=" top-0 z-40">
-            <header className="h-[10vh] flex justify-between items-center max-w-7xl mx-auto">
+            <header className="h-[10vh] flex justify-between items-center max-w-6xl mx-auto pr-2">
                 <div className="flex items-center">
                     <img
                         src={wildfireLogo}
