@@ -10,6 +10,7 @@ import Register from './pages/Register';
 import ForgotPassword from './pages/ForgotPassword';
 import Contact from './pages/Contact';
 import AddNovel from './pages/AddNovel';
+import NovelEdit from './pages/NovelEdit';
 
 function App() {
     return (
@@ -24,11 +25,11 @@ function App() {
                     <Route path="contact" element={<Contact />} />
                     <Route path="/profile" element={<PrivateRoute />}>
                         <Route path="/profile" element={<Profile />} />
-                        
                     </Route>
                     <Route path='/addnovel' element={<PrivateRoute/>}>
                         <Route path="/addnovel" element={<AddNovel/>}/>
                     </Route>
+                    <Route path="/editnovel/:id" element={<NovelEdit/>}/>
                 </Routes>
             </Router>
             <ToastContainer

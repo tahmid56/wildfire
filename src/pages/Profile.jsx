@@ -86,7 +86,7 @@ const Profile = () => {
                         <h2 className="text-2xl text-center font-semibold mb-6">My Novels</h2>
                         <ul className="sm:grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
                             {novels.map((novel) => (
-                                <ProfileCard novel={novel.data} key={novel.id} />
+                                <ProfileCard novel={novel.data} id={novel.id} key={novel.id} />
                             ))}
                         </ul>
                     </>
