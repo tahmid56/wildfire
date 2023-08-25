@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getAuth } from 'firebase/auth';
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import { collection, deleteDoc, doc, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../utils/firebaseConfig';
 import Card from '../components/Card';
 import ProfileCard from '../components/ProfileCard';
+import { toast } from 'react-toastify';
+import { deleteObject, getStorage, ref } from 'firebase/storage';
 const Profile = () => {
     const auth = getAuth();
     const navigate = useNavigate();
@@ -15,23 +17,44 @@ const Profile = () => {
         auth.signOut();
         navigate('/');
     };
-    useEffect(() => {
-        async function fetchUserNovel() {
-            const novelRef = collection(db, 'novels');
-            const q = query(
-                novelRef,
-                where('userRef', '==', auth.currentUser.uid),
-                where('publish', '==', section === 1 ? true : false)
-            );
-            const querySnap = await getDocs(q);
-            let newNovels = [];
-            querySnap.forEach((doc) => {
-                return newNovels.push({ id: doc.id, data: doc.data() });
+    const handleDelete = async (id) => {
+        const storage = getStorage();
+        const novelToDel = novels.find((novel) => (novel.id = id));
+        console.log(novelToDel);
+        novelToDel.data.imgUrls.map((img) => {
+            const imageRef = ref(storage, img);
+            deleteObject(imageRef).catch((error) => {
+                toast.error('An error occured');
+                console.log(error);
             });
-            console.log(newNovels);
-            setNovels(newNovels);
-            setLoading(false);
-        }
+        });
+        await deleteDoc(doc(db, 'novels', id))
+            .then(() => {
+                toast.success('Novel deleted');
+                fetchUserNovel();
+            })
+            .catch((error) => {
+                toast.error('An error occured');
+                console.log(error);
+            });
+    };
+    async function fetchUserNovel() {
+        const novelRef = collection(db, 'novels');
+        const q = query(
+            novelRef,
+            where('userRef', '==', auth.currentUser.uid),
+            where('publish', '==', section === 1 ? true : false)
+        );
+        const querySnap = await getDocs(q);
+        let newNovels = [];
+        querySnap.forEach((doc) => {
+            return newNovels.push({ id: doc.id, data: doc.data() });
+        });
+        console.log(newNovels);
+        setNovels(newNovels);
+        setLoading(false);
+    }
+    useEffect(() => {
         fetchUserNovel();
     }, [auth.currentUser.uid, section]);
     return (
@@ -49,7 +72,7 @@ const Profile = () => {
                 <button
                     type="button"
                     onClick={onLogoutClick}
-                    class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                    className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
                 >
                     Logout
                 </button>
@@ -80,13 +103,18 @@ const Profile = () => {
                     </div>
                 </div>
             </nav>
-            <div className="max-w-6xl px-3 mt-6 mx-auto">
+            <div className="max-w-6xl px-3 mt-6 mx-[15vw]">
                 {!loading && novels.length > 0 && (
                     <>
                         <h2 className="text-2xl text-center font-semibold mb-6">My Novels</h2>
-                        <ul className="sm:grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+                        <ul className="sm:grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 space-x-3">
                             {novels.map((novel) => (
-                                <ProfileCard novel={novel.data} id={novel.id} key={novel.id} />
+                                <ProfileCard
+                                    novel={novel.data}
+                                    id={novel.id}
+                                    key={novel.id}
+                                    handleDelete={handleDelete}
+                                />
                             ))}
                         </ul>
                     </>
