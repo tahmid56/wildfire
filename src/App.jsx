@@ -11,6 +11,8 @@ import ForgotPassword from './pages/ForgotPassword';
 import Contact from './pages/Contact';
 import AddNovel from './pages/AddNovel';
 import NovelEdit from './pages/NovelEdit';
+import Novel from './pages/Novel';
+import Footer from './components/Footer';
 
 function App() {
     return (
@@ -19,6 +21,7 @@ function App() {
                 <Header />
                 <Routes>
                     <Route path="/" element={<Home />} />
+                    <Route path="/novel/:id" element={<Novel />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/forgot-password" element={<ForgotPassword />} />
@@ -26,11 +29,12 @@ function App() {
                     <Route path="/profile" element={<PrivateRoute />}>
                         <Route path="/profile" element={<Profile />} />
                     </Route>
-                    <Route path='/addnovel' element={<PrivateRoute/>}>
-                        <Route path="/addnovel" element={<AddNovel/>}/>
+                    <Route path="/addnovel" element={<PrivateRoute />}>
+                        <Route path="/addnovel" element={<AddNovel />} />
                     </Route>
-                    <Route path="/editnovel/:id" element={<NovelEdit/>}/>
+                    <Route path="/editnovel/:id" element={<NovelEdit />} />
                 </Routes>
+                <Footer />
             </Router>
             <ToastContainer
                 position="top-right"

@@ -71,6 +71,8 @@ const AddNovel = () => {
             category: 'fanmade',
             timestamp: serverTimestamp(),
             userRef: auth.currentUser.uid,
+            authorName: auth.currentUser.displayName,
+            views: "0"
         };
 
         delete formDataCopy.images;

@@ -1,48 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
 import Card from '../components/Card';
 import demo from '../assets/images/demo.png';
 import coverPic1 from '../assets/images/coverPic1.jpg';
 import coverPic2 from '../assets/images/coverPic2.png';
+import { collection, doc, getDoc, getDocs, query, updateDoc, where } from 'firebase/firestore';
+import { db } from '../utils/firebaseConfig';
+import { useNavigate } from 'react-router-dom';
+import Footer from '../components/Footer';
 
 const Home = () => {
-    const animeList = [
-        {
-            name: 'Hello There',
-            imgUrl: demo,
-            description: 'Lorem ipsum tor es dinos men tro',
-        },
-        {
-            name: 'Hello There 2',
-            imgUrl: demo,
-            description: 'Lorem ipsum tor es dinos men tro',
-        },
-        {
-            name: 'Hello There 3',
-            imgUrl: demo,
-            description: 'Lorem ipsum tor es dinos men tro',
-        },
-        {
-            name: 'Hello There 4',
-            imgUrl: demo,
-            description: 'Lorem ipsum tor es dinos men tro',
-        },
-        {
-            name: 'Hello There 5',
-            imgUrl: demo,
-            description: 'Lorem ipsum tor es dinos men tro',
-        },
-        {
-            name: 'Hello There 6',
-            imgUrl: demo,
-            description: 'Lorem ipsum tor es dinos men tro',
-        },
-        {
-            name: 'Hello There 7',
-            imgUrl: demo,
-            description: 'Lorem ipsum tor es dinos men tro',
-        },
-    ];
+    const navigate = useNavigate();
+    const [novelList, setNovelList] = useState([]);
     const slides = [
         {
             imgUrl: 'https://images.unsplash.com/photo-1519638399535-1b036603ac77?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1631&q=80',
@@ -73,6 +42,34 @@ const Home = () => {
         const newIndex = isLastSlide ? 0 : currentIndex + 1;
         setCurrentIndex(newIndex);
     };
+    const handleViewsClick = async (id) => {
+        const novelToUpdate = novelList.find((novel) => novel.id === id);
+        const novelRef = doc(db, 'novels', id);
+        let viewCount = novelToUpdate.data.views;
+        viewCount = String(Number(viewCount) + 1);
+        await updateDoc(novelRef, {
+            views: viewCount,
+        });
+        navigate(`/novel/${id}`);
+    };
+    useEffect(() => {
+        async function fetchNovelData() {
+            const novelRef = collection(db, 'novels');
+            const q = query(
+                novelRef,
+                where('publish', '==', true),
+                where('category', '==', selectedNav == 1 ? 'popular' : selectedNav == 2 ? 'original' : 'fanmade')
+            );
+            const querySnap = await getDocs(q);
+            let newNovels = [];
+            querySnap.forEach((doc) => {
+                return newNovels.push({ id: doc.id, data: doc.data() });
+            });
+
+            setNovelList(newNovels);
+        }
+        fetchNovelData();
+    }, [selectedNav]);
     return (
         <main className="max-w-full">
             <div className="max-w-full sm:w-[90vw] bg-blue h-[380px] sm:h-[480px]  m-auto relative">
@@ -127,8 +124,12 @@ const Home = () => {
                 </div>
             </nav>
             <div className="mt-3 mx-[10vw] sm:mx-[15vw] md:mx-[35vw]  flex flex-col justify-center items-center space-y-3">
-                {animeList && animeList.map((anime, index) => <Card anime={anime} key={index} />)}
+                {novelList &&
+                    novelList.map((novel, index) => (
+                        <Card novel={novel.data} id={novel.id} key={index} handleViewsClick={handleViewsClick} />
+                    ))}
             </div>
+            {/* <Footer /> */}
         </main>
     );
 };

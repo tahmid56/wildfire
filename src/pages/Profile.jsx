@@ -107,7 +107,7 @@ const Profile = () => {
                 {!loading && novels.length > 0 && (
                     <>
                         <h2 className="text-2xl text-center font-semibold mb-6">My Novels</h2>
-                        <ul className="sm:grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 space-x-3">
+                        <ul className="sm:grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 space-x-3 space-y-3">
                             {novels.map((novel) => (
                                 <ProfileCard
                                     novel={novel.data}

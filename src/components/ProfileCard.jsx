@@ -4,18 +4,18 @@ import { useNavigate } from 'react-router-dom';
 const ProfileCard = ({ novel, id, handleDelete }) => {
     const navigate = useNavigate();
     return (
-        <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <div className="max-w-md bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
             <a href="#">
                 <img className="rounded-t-lg" src={novel.imgUrls[0]} alt="" />
             </a>
-            <div className="p-5">
+            <div className="p-5 flex flex-col justify-between">
                 <a href="#">
                     <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                         {novel.name}
                     </h5>
                 </a>
-                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{novel.description}</p>
-                <div className="flex">
+                <p className="mb-1 font-normal text-gray-700 dark:text-gray-400">{novel.description}</p>
+                <div className="flex mt-4">
                     <button
                         type="button"
                         onClick={(e) => navigate(`/editnovel/${id}`)}
