@@ -6,13 +6,13 @@ import {getFirestore} from 'firebase/firestore';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyARKt-iSoHl87aKYi2JTN9fpo__l3C2bOA",
-  authDomain: "wildfire-7ce11.firebaseapp.com",
-  projectId: "wildfire-7ce11",
-  storageBucket: "wildfire-7ce11.appspot.com",
-  messagingSenderId: "337574566826",
-  appId: "1:337574566826:web:90db3565fd0f64f61b29d3"
-};
+    apiKey: "AIzaSyCJWjgXA_vud684_JPggUHlA178VdetqeQ",
+    authDomain: "wildfire-47279.firebaseapp.com",
+    projectId: "wildfire-47279",
+    storageBucket: "wildfire-47279.appspot.com",
+    messagingSenderId: "1003413195775",
+    appId: "1:1003413195775:web:e9820255ac82f6eb34b5ca"
+  };
 
 // Initialize Firebase
 initializeApp(firebaseConfig);
